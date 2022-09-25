@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NoteSnap</title>
 </head>
+
 <body>
     <div>
 
         <form action="">
-            <label for="content">Content: </label>
-            <textarea name="content" id="content" cols="20" rows="10" placeholder="Take a note: "></textarea>
-    
+            <div
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 300px; margin: 20px; border: 1px solid black; padding: 10px;">
+                <label for="add-note-title">Title: </label>
+                <input type="text" name="addNoteTitle" id="add-note-title" value="kuch bhi">
+                <br>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <label for="add-note-content">Content: </label>
+                    <textarea name="content" id="add-note-content" cols="20" rows="10"
+                        placeholder="Take a note: ">kuch bhi content</textarea>
+                </div>
+                <div>
+                    <div style="display: flex;;">
+
+                        <button>B</button>
+                        <button>U</button>
+                        <button>Copy</button>
+                    </div>
+                    <button style="float: right;" id="save-note-btn">Save Note</button>
+                </div>
+            </div>
+
         </form>
+
+        <div id="saved-note-card"
+            style="margin-top: 50px ;  border: 1px solid black; padding: 10px; max-width: 150px; padding-top: 0; display: none;">
+            <h4 id="saved-note-title">Title</h4>
+            <small>25-09-2022</small>
+            <p id="saved-note-content"> Content</p>
+
+        </div>
     </div>
 </body>
+<script src="./index.js"></script>
+
 </html>
