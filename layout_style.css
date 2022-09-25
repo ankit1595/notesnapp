@@ -1,0 +1,35 @@
+.cards-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: space-around;   /*  To change if postioning not looking good of cards*/
+    /* background-color: aqua; */
+}
+
+.cards-container div{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 250px;
+    height: 230px;
+    align-content: space-between;
+    justify-content: space-between;
+    border: 2px solid rgb(121, 122, 121);
+    margin-bottom: 50px;
+    border-radius: 10px;
+    margin-right: 30px;
+    justify-content:center;
+    background-color: rgb(242, 238, 234);
+    overflow: hidden;
+}
+.cards-container div h2{
+    margin-bottom: 0px;
+}
+
+.cards-container div p{
+    padding-left: 3px;
+    padding-right: 3px;
+}
