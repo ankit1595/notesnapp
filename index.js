@@ -59,7 +59,7 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  allNotes.forEach((element, index) => {
+  allNotes.slice().reverse().forEach((element, index) => {
     noteCard =
       noteCard +
       `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
