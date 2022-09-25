@@ -9,10 +9,13 @@ let allNotes;
 let errorMessage = "";
 // localStorage.clear();
 
+// const noteDate = String(new Date()).slice(4, 15);
+
 const addNoteTitle = getById(addTitleId);
 const addNoteContent = getById(addContentId);
 const addNoteBtn = getById(addNoteBtnId);
 
+//to display notes initially and on refresh
 displayNotes();
 
 addNoteBtn.addEventListener("click", () => {
@@ -34,7 +37,11 @@ function addNote() {
   } else {
     allNotes = [];
   }
-  allNotes.push({ title: addNoteTitle.value, content: addNoteContent.value });
+  allNotes.push({
+    title: addNoteTitle.value,
+    content: addNoteContent.value,
+    noteDate: String(new Date()).slice(4, 15),
+  });
   localStorage.setItem("notes", JSON.stringify(allNotes));
   addNoteTitle.value = "";
   addNoteContent.value = "";
@@ -50,6 +57,7 @@ function displayNotes() {
     allNotes = JSON.parse(notes);
   } else {
     allNotes = [];
+    notesContainer.innerHTML = `No Notes!`;
   }
   allNotes.forEach((element, index) => {
     noteCard =
@@ -58,6 +66,7 @@ function displayNotes() {
                 <div class="card-body">
                     <h5 class="note-title">${element?.title ?? ""}</h5>
                     <p class="note-content"> ${element?.content ?? ""}</p>
+                    <small>${element?.noteDate ?? ""} </small>
                     <!-- <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button> -->
                 </div>
             </div>`;
