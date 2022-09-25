@@ -1,27 +1,19 @@
+const getById = (id) => {
+  return document.getElementById(id);
+};
 const addTitleId = "add-note-title";
 const addContentId = "add-note-content";
-// const savedTitleId = "note-title";
-// const savedContentId = "note-content";
-// const savedNoteCardId = "note-card";
 const addNoteBtnId = "add-note-btn";
+
 let allNotes;
 let errorMessage = "";
 // localStorage.clear();
 
-const getById = (id) => {
-  return document.getElementById(id);
-};
-
 const addNoteTitle = getById(addTitleId);
 const addNoteContent = getById(addContentId);
 const addNoteBtn = getById(addNoteBtnId);
-// const savedNoteTitle = getById(savedTitleId);
-// const savedNoteContent = getById(savedContentId);
-// const savedNoteCard = getById(savedNoteCardId);
-// let addNoteTitleText = addNoteTitle.value;
-// let addNoteContentText = addContent.value;
 
-//////////
+displayNotes();
 
 addNoteBtn.addEventListener("click", () => {
   let errorDiv = document.querySelector("#error-message");
@@ -30,20 +22,11 @@ addNoteBtn.addEventListener("click", () => {
     addNote();
   } else {
     errorDiv.innerText =
-      "Note contents are emply. Add content in order to save note.";
+      "Note contents are empty. Add content in order to save note.";
   }
 });
-// addNoteTitle.addEventListener("input", saveTitleTemp);
-// addContent.addEventListener("input", saveContentTemp);
 
-// function saveTitleTemp(e) {
-//   addNoteTitleText = e.target.value;
-// }
-// function saveContentTemp(e) {
-//   addNoteContentText = e.target.value;
-// }
-
-function addNote(e) {
+function addNote() {
   console.log("Add note Button clicked");
   let notes = localStorage.getItem("notes");
   if (notes) {
@@ -56,9 +39,18 @@ function addNote(e) {
   addNoteTitle.value = "";
   addNoteContent.value = "";
   console.log(allNotes);
+  displayNotes();
+}
 
+function displayNotes() {
   let notesContainer = getById("notes");
   let noteCard = "";
+  let notes = localStorage.getItem("notes");
+  if (notes) {
+    allNotes = JSON.parse(notes);
+  } else {
+    allNotes = [];
+  }
   allNotes.forEach((element, index) => {
     noteCard =
       noteCard +
@@ -73,19 +65,3 @@ function addNote(e) {
   });
 }
 
-//intially saved note should be hidden
-// savedNoteCard.style.display = "none";
-
-// function saveNote(e) {
-//   e.preventDefault();
-
-//   addNoteTitle.value = "";
-//   addContent.value = "";
-
-//   //display saved note card
-//   savedNoteCard.style.display = 'block'
-
-//   //Save note content to savedNote card
-//   savedNoteTitle.innerText = addNoteTitleText;
-//   savedNoteContent.innerText = addNoteContentText;
-// }

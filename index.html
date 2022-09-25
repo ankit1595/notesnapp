@@ -12,41 +12,6 @@
 </head>
 
 <body>
-    <!-- <div>
-
-        <form action="">
-            <div
-                style="display: flex; flex-direction: column; justify-content: center; align-items: center; max-width: 300px; margin: 20px; border: 1px solid black; padding: 10px;">
-                <label for="add-note-title">Title: </label>
-                <input type="text" name="addNoteTitle" id="add-note-title" value="kuch bhi">
-                <br>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <label for="add-note-content">Content: </label>
-                    <textarea name="content" id="add-note-content" cols="20" rows="10"
-                        placeholder="Take a note: ">kuch bhi content</textarea>
-                </div>
-                <div>
-                    <div style="display: flex;;">
-
-                        <button>B</button>
-                        <button>U</button>
-                        <button>Copy</button>
-                    </div>
-                    <button style="float: right;" id="save-note-btn">Save Note</button>
-                </div>
-            </div>
-
-        </form>
-
-        <div id="saved-note-card"
-            style="margin-top: 50px ;  border: 1px solid black; padding: 10px; max-width: 150px; padding-top: 0; display: none;">
-            <h4 id="saved-note-title">Title</h4>
-            <small>25-09-2022</small>
-            <p id="saved-note-content"> Content</p>
-
-        </div>
-    </div> -->
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <a class="navbar-brand" href="#">NoteSnap</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -61,16 +26,11 @@
                 </li>
 
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
         </div>
     </nav>
 
 
     <div class="container my-3 w-75">
-        <!-- <h1>Welcome To Magic Notes</h1> -->
         <div class="card border border-secondary w-75 m-auto">
             <div class="card-body">
                 <h5 class="card-title">Add a note</h5>
@@ -93,13 +53,13 @@
         <h2>Saved Notes</h2>
         <br>
         <div id="notes" class="row container-fluid"> 
-            <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
+            <!-- <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="note-title">Note Title</h5>
                     <p class="note-content"> Content</p>
-                    <!-- <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button> -->
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button> 
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- bootstrap -->
