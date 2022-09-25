@@ -117,6 +117,6 @@ document.addEventListener("click", (e) => {
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand("copy");
-    textArea.classList.add("hidden");
+    textArea.classList.add("hide");
   }
 });
