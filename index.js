@@ -80,18 +80,30 @@ function displayNotes() {
 const text = document.querySelector("#add-note-content");
 const boldButton = document.querySelector("#bold-btn");
 const underlineButton = document.querySelector("#underline-btn");
+let isBold = false;
+let isUnderline = false;
 
 text.contentEditable = "true";
 
 function bold(e) {
   e.preventDefault();
-  {
-    document.execCommand("bold");
+  isBold = !isBold;
+  if (isBold) {
+    boldButton.classList.replace("btn-outline-dark", "btn-dark");
+  } else {
+    boldButton.classList.replace("btn-dark", "btn-outline-dark");
   }
+  document.execCommand("bold");
 }
 
 function underline(e) {
   e.preventDefault();
+  isUnderline = !isUnderline;
+  if (isUnderline) {
+    underlineButton.classList.replace("btn-outline-dark", "btn-dark");
+  } else {
+    underlineButton.classList.replace("btn-dark", "btn-outline-dark");
+  }
   document.execCommand("underLine");
 }
 
