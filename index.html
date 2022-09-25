@@ -40,19 +40,20 @@
                         aria-describedby="inputGroup-sizing-default">
                 </div>
                 <div class="form-group">
-                    <textarea placeholder="Take a note..." class="form-control" id="add-note-content" rows="3"></textarea>
+                    <!-- <textarea placeholder="Take a note..." class="form-control" id="add-note-content" rows="3"></textarea> -->
+                    <p id="add-note-content" class="form-control" style="overflow-y: auto; height: 130px;"></p>
                     <div id="error-message" style="color: red; margin-bottom: 10px; font-size: 12px;"></div>
                 </div>
-                <button class="btn btn-sm btn-dark"> <b>B</b> </button>
-                <button class="btn btn-sm btn-dark" style="text-decoration: underline;">U</button>
-                <button class="btn btn-sm btn-warning">Copy</button>
+                <button class="btn btn-sm btn-dark" id="bold-btn"> <b>B</b> </button>
+                <button class="btn btn-sm btn-dark" id="underline-btn" style="text-decoration: underline;">U</button>
+                <button class="btn btn-sm btn-warning copy">Copy</button>
                 <button class="btn btn-primary float-right" id="add-note-btn">Add Note</button>
             </div>
         </div>
         <br>
         <h2>Saved Notes</h2>
         <br>
-        <div id="notes" class="row container-fluid"> 
+        <div id="notes" class="row container-fluid">
             <!-- <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="note-title">Note Title</h5>

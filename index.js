@@ -21,7 +21,7 @@ displayNotes();
 addNoteBtn.addEventListener("click", () => {
   let errorDiv = document.querySelector("#error-message");
   errorDiv.innerText = "";
-  if (addNoteContent.value) {
+  if (addNoteContent.innerText) {
     addNote();
   } else {
     errorDiv.innerText =
@@ -39,12 +39,12 @@ function addNote() {
   }
   allNotes.push({
     title: addNoteTitle.value,
-    content: addNoteContent.value,
+    content: addNoteContent.innerHTML,
     noteDate: String(new Date()).slice(4, 15),
   });
   localStorage.setItem("notes", JSON.stringify(allNotes));
   addNoteTitle.value = "";
-  addNoteContent.value = "";
+  addNoteContent.innerText = "";
   console.log(allNotes);
   displayNotes();
 }
@@ -59,10 +59,13 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  allNotes.slice().reverse().forEach((element, index) => {
-    noteCard =
-      noteCard +
-      `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
+  allNotes
+    .slice()
+    .reverse()
+    .forEach((element, index) => {
+      noteCard =
+        noteCard +
+        `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="note-title">${element?.title ?? ""}</h5>
                     <p class="note-content"> ${element?.content ?? ""}</p>
@@ -70,7 +73,50 @@ function displayNotes() {
                     <!-- <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button> -->
                 </div>
             </div>`;
-    notesContainer.innerHTML = noteCard;
-  });
+      notesContainer.innerHTML = noteCard;
+    });
 }
 
+const text = document.querySelector("#add-note-content");
+const boldButton = document.querySelector("#bold-btn");
+const underlineButton = document.querySelector("#underline-btn");
+
+text.contentEditable = "true";
+
+function bold(e) {
+  e.preventDefault();
+  {
+    document.execCommand("bold");
+  }
+}
+
+function underline(e) {
+  e.preventDefault();
+  document.execCommand("underLine");
+}
+
+boldButton.addEventListener("click", bold);
+underlineButton.addEventListener("click", underline);
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".copy")) {
+    console.log(
+      "copy: ",
+      e.target.closest(".copy").parentElement.lastElementChild
+        .previousElementSibling.previousElementSibling.previousElementSibling
+        .previousElementSibling
+    );
+    const copytext =
+      e.target.closest(".copy").parentElement.lastElementChild
+        .previousElementSibling.previousElementSibling.previousElementSibling
+        .previousElementSibling.innerText;
+    const textArea = document.createElement("textarea");
+    textArea.setAttribute("readonly", "");
+    textArea.style.position = "absolute";
+    textArea.value = copytext;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.classList.add("hidden");
+  }
+});
