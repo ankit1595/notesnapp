@@ -10,6 +10,7 @@ const addNoteBtnId = "add-note-btn";
 let editTitleId = "edit-note-title";
 let editContentId = "edit-note-content";
 let editNoteBtnId = "edit-note-btn";
+let editBoldBtnId = "edit-bold-button";
 
 //declarations for bold, underline and copy
 const text = document.querySelector("#add-note-content");
@@ -17,6 +18,8 @@ const boldButton = document.querySelector("#bold-btn");
 const underlineButton = document.querySelector("#underline-btn");
 let isBold = false;
 let isUnderline = false;
+let isBoldInEdit = false;
+let isUnderlineInEdit = false;
 text.contentEditable = "true";
 
 let allNotes;
@@ -31,6 +34,7 @@ const addNoteBtn = getById(addNoteBtnId);
 let editNoteTitle = getById(editTitleId);
 let editNoteContent = getById(editContentId);
 let editNoteBtn = getById(editNoteBtnId);
+let editBoldBtn = getById(editBoldBtnId);
 
 //to display notes initially and on refresh
 displayNotes();
@@ -178,9 +182,9 @@ function editNote(index) {
             style="color: red; margin-bottom: 10px; font-size: 14px"
           ></div>
         </div>
-        <div class="buttons">
-          <div class="util-btn">
-            <button class="btn btn-sm btn-outline-dark" id="bold-btn">
+        <div class="buttons justify-content-end">
+          <!-- <div class="util-btn">
+            <button class="btn btn-sm btn-outline-dark" id="edit-bold-btn">
               <b>B</b>
             </button>
             <button
@@ -190,19 +194,19 @@ function editNote(index) {
             >
               U
             </button>
-            <button class="btn btn-sm btn-warning copy">Copy</button>
-          </div>
+            <button class="btn btn-sm btn-warning edit-copy">Copy</button>
+          </div> -->
           <div class="">
+          <button
+            type="button"
+            class="btn btn-secondary mx-2"
+            data-dismiss="modal"  
+            onclick="window.location.reload();"
+          >
+            Close
+          </button>
             <button class="btn btn-primary float-right" id="${index}" onclick="updateNote(this.id)">
               Update Note
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary mx-2"
-              data-dismiss="modal"  
-              onclick="window.location.reload();"
-            >
-              Close
             </button>
           </div>
         </div>
@@ -211,17 +215,14 @@ function editNote(index) {
   </div>
 </div>`;
 
-
   displayNotes();
   editTitleId = "edit-note-title";
   editContentId = "edit-note-content";
-
+  editBoldBtnId = "edit-bold-button";
+  editBoldBtn = getById(editBoldBtnId);
 }
 
- 
-
 function displayNotes() {
-   
   // text.contentEditable = "true";
   let notesContainer = getById("notes");
   let noteCard = "";
@@ -272,6 +273,16 @@ function displayNotes() {
   }
 }
 
+function boldInsideEdit(e) {
+  e.preventDefault();
+  isBoldInEdit = !isBoldInEdit;
+  if (isBoldInEdit) {
+    editBoldBtn.classList.replace("btn-outline-dark", "btn-dark");
+  } else {
+    editBoldBtn.classList.replace("btn-dark", "btn-outline-dark");
+  }
+  document.execCommand("bold");
+}
 
 function bold(e) {
   e.preventDefault();
@@ -298,18 +309,16 @@ function underline(e) {
 boldButton.addEventListener("click", bold);
 underlineButton.addEventListener("click", underline);
 
+//edit pop up bold button
+editBoldBtn.addEventListener("click", boldInsideEdit);
+
 document.addEventListener("click", (e) => {
   if (e.target.closest(".copy")) {
-    console.log(
-      "copy: ",
-      e.target.closest(".copy").parentElement.lastElementChild
-        .previousElementSibling.previousElementSibling.previousElementSibling
-        .previousElementSibling
-    );
     const copytext =
-      e.target.closest(".copy").parentElement.lastElementChild
-        .previousElementSibling.previousElementSibling.previousElementSibling
-        .previousElementSibling.innerText;
+      e.target.closest(".copy").parentElement.parentElement
+        .previousElementSibling.lastElementChild.previousElementSibling
+        .innerText;
+    console.log("copy: ", copytext);
     const textArea = document.createElement("textarea");
     textArea.setAttribute("readonly", "");
     textArea.style.position = "absolute";
