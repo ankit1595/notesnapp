@@ -79,21 +79,19 @@ function deleteNote(index) {
     allNotes = JSON.parse(notes);
   } else {
     allNotes = [];
+    notesContainer.innerHTML = `No Notes!`;
   }
   allNotes.splice(index, 1);
   console.log("allNotes: ", allNotes);
   localStorage.setItem("notes", JSON.stringify(allNotes));
   displayNotes();
+  window.location.reload();
 }
 
 function updateNote(index) {
   editNoteTitle = getById(editTitleId);
   editNoteContent = getById(editContentId);
-  // editNoteBtn = getById(editNoteBtnId);
 
-  console.log("update: ", index);
-  console.log("editNoteTitle: ", editNoteTitle.value);
-  console.log("editNoteContent: ", editNoteContent.innerHTML);
   let notes = localStorage.getItem("notes");
   if (notes) {
     allNotes = JSON.parse(notes);
