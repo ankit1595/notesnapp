@@ -1,9 +1,23 @@
-const getById = id => {
+const getById = (id) => {
   return document.getElementById(id);
 };
+
+// IDs declarations
 const addTitleId = "add-note-title";
 const addContentId = "add-note-content";
 const addNoteBtnId = "add-note-btn";
+// for Edit Note
+let editTitleId = "edit-note-title";
+let editContentId = "edit-note-content";
+let editNoteBtnId = "edit-note-btn";
+
+//declarations for bold, underline and copy
+const text = document.querySelector("#add-note-content");
+const boldButton = document.querySelector("#bold-btn");
+const underlineButton = document.querySelector("#underline-btn");
+let isBold = false;
+let isUnderline = false;
+text.contentEditable = "true";
 
 let allNotes;
 let errorMessage = "";
@@ -14,10 +28,15 @@ let errorMessage = "";
 const addNoteTitle = getById(addTitleId);
 const addNoteContent = getById(addContentId);
 const addNoteBtn = getById(addNoteBtnId);
+let editNoteTitle = getById(editTitleId);
+let editNoteContent = getById(editContentId);
+let editNoteBtn = getById(editNoteBtnId);
 
 //to display notes initially and on refresh
 displayNotes();
 
+//Event Listeners
+//1. AddNote
 addNoteBtn.addEventListener("click", () => {
   let errorDiv = document.querySelector("#error-message");
   errorDiv.innerText = "";
@@ -58,10 +77,37 @@ function deleteNote(index) {
     allNotes = [];
   }
   allNotes.splice(index, 1);
-  console.log("allNotes: ", index);
+  console.log("allNotes: ", allNotes);
   localStorage.setItem("notes", JSON.stringify(allNotes));
   displayNotes();
 }
+
+function updateNote(index) {
+  editNoteTitle = getById(editTitleId);
+  editNoteContent = getById(editContentId);
+  // editNoteBtn = getById(editNoteBtnId);
+
+  console.log("update: ", index);
+  console.log("editNoteTitle: ", editNoteTitle.value);
+  console.log("editNoteContent: ", editNoteContent.innerHTML);
+  let notes = localStorage.getItem("notes");
+  if (notes) {
+    allNotes = JSON.parse(notes);
+  } else {
+    allNotes = [];
+  }
+  allNotes[index] = {
+    title: editNoteTitle.value,
+    content: editNoteContent.innerHTML,
+    noteDate: String(new Date()).slice(4, 15),
+  };
+  console.log("allNotes: ", allNotes);
+  localStorage.setItem("notes", JSON.stringify(allNotes));
+  displayNotes();
+}
+
+const body = document.getElementsByTagName("body")[0];
+const bodyHTML = body.innerHTML;
 
 function editNote(index) {
   let notes = localStorage.getItem("notes");
@@ -72,20 +118,23 @@ function editNote(index) {
   }
   console.log("edit: ", allNotes[index]);
   const editObj = allNotes[index];
-  const editBtn = document.createElement("button");
-  // id="show-notes-btn"
-  // data-toggle="modal"
-  // data-target="#exampleModalCenter"
-  document.getElementsByTagName("body")[0].appendChild = editBtn;
-  editBtn.setAttribute(
-    "id",
-    "show-notes-btn",
-    "data-toggle",
-    "modal",
-    "data-target",
-    "#exampleModalCenter"
-  );
-  document.getElementsByTagName("body")[0].appendChild = `<div
+  // const editBtn = document.createElement("button");
+  // // id="show-notes-btn"
+  // // data-toggle="modal"
+  // // data-target="#exampleModalCenter"
+  // document.getElementsByTagName("body")[0].appendChild = editBtn;
+  // editBtn.setAttribute(
+  //   "id",
+  //   "show-notes-btn",
+  //   "data-toggle",
+  //   "modal",
+  //   "data-target",
+  //   "#exampleModalCenter"
+  // );
+
+  body.innerHTML =
+    bodyHTML +
+    `<div
   class="modal fade"
   id="exampleModalCenter"
   tabindex="-1"
@@ -113,15 +162,15 @@ function editNote(index) {
           <span class="input-group-text" id="inputGroup-sizing-default"
             >Title</span
           >
-          <input type="text" id="add-note-title" class="form-control"
+          <input type="text" id="edit-note-title" class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
           value="${editObj.title ?? ""}" />
         </div>
         <div class="form-group">
-          <!-- <textarea placeholder="Take a note..." class="form-control" id="add-note-content" rows="3"></textarea> -->
+          <!-- <textarea placeholder="Take a note..." class="form-control" id="edit-note-content" rows="3"></textarea> -->
           <p
-            id="add-note-content"
+            id="edit-note-content"
             class="form-control"
             contenteditable="true"
             ;
@@ -149,7 +198,7 @@ function editNote(index) {
             <button class="btn btn-sm btn-warning copy">Copy</button>
           </div>
           <div class="">
-            <button class="btn btn-primary float-right" id="add-note-btn">
+            <button class="btn btn-primary float-right" id="${index}" onclick="updateNote(this.id)">
               Update Note
             </button>
             <button
@@ -171,9 +220,13 @@ function editNote(index) {
   // localStorage.setItem("notes", JSON.stringify(allNotes));
 
   displayNotes();
+  editTitleId = "edit-note-title";
+  editContentId = "edit-note-content";
+  // editNoteBtnId = "edit-note-btn";
 }
 
 function displayNotes() {
+  text.contentEditable = "true";
   let notesContainer = getById("notes");
   let noteCard = "";
   let notes = localStorage.getItem("notes");
@@ -239,15 +292,69 @@ function displayNotes() {
   </div>`;
     notesContainer.innerHTML = noteCard;
   });
+  /* allNotes
+    .forEach((element, index) => {
+      noteCard =
+        noteCard +
+        `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="note-title" style="display: ${
+                      element.title ? "block" : "none"
+                    }">${element?.title ?? ""}</h5>
+                    <p class="note-content"> ${element?.content ?? ""}</p>
+                    <small>${element?.noteDate ?? ""} </small>
+                    <div>
+                    <button
+                    id="${index}" onclick="editNote(this.id)"
+                    class="btn btn-primary float-right 
+                    id="show-notes-btn"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                  >
+                  E
+                </button>
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
+                    </div>
+                </div>
+                
+            </div>`;
+      notesContainer.innerHTML = noteCard;
+    });*/
+
+  for (let index = allNotes.length - 1; index >= 0; index--) {
+    let element = allNotes[index];
+    noteCard =
+      noteCard +
+      `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="note-title" style="display: ${
+                      element.title ? "block" : "none"
+                    }">${element?.title ?? ""}</h5>
+                    <p class="note-content"> ${element?.content ?? ""}</p>
+                    <small>${element?.noteDate ?? ""} </small>
+                    <div>
+                    <button
+                    id="${index}" onclick="editNote(this.id)"
+                    class="btn btn-primary float-right 
+                    id="show-notes-btn"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                  >
+                  E
+                </button>
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
+                    </div>
+                </div>
+                
+            </div>`;
+    notesContainer.innerHTML = noteCard;
+    // if (notes.length) {
+    //   notesContainer.innerHTML = noteCard;
+    // } else {
+    //   notesContainer.innerHTML = `No Notes!`;
+    // }
+  }
 }
-
-const text = document.querySelector("#add-note-content");
-const boldButton = document.querySelector("#bold-btn");
-const underlineButton = document.querySelector("#underline-btn");
-let isBold = false;
-let isUnderline = false;
-
-text.contentEditable = "true";
 
 function bold(e) {
   e.preventDefault();
@@ -274,7 +381,7 @@ function underline(e) {
 boldButton.addEventListener("click", bold);
 underlineButton.addEventListener("click", underline);
 
-document.addEventListener("click", e => {
+document.addEventListener("click", (e) => {
   if (e.target.closest(".copy")) {
     console.log(
       "copy: ",
