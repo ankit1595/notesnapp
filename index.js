@@ -58,10 +58,13 @@ function deleteNote(index) {
     allNotes = [];
   }
   allNotes.splice(index, 1);
-  console.log("allNotes: ", index);
+  console.log("allNotes: ", allNotes);
   localStorage.setItem("notes", JSON.stringify(allNotes));
   displayNotes();
 }
+
+const body = document.getElementsByTagName("body")[0];
+const bodyHTML = body.innerHTML;
 
 function editNote(index) {
   let notes = localStorage.getItem("notes");
@@ -72,20 +75,23 @@ function editNote(index) {
   }
   console.log("edit: ", allNotes[index]);
   const editObj = allNotes[index];
-  const editBtn = document.createElement("button");
-  // id="show-notes-btn"
-  // data-toggle="modal"
-  // data-target="#exampleModalCenter"
-  document.getElementsByTagName("body")[0].appendChild = editBtn;
-  editBtn.setAttribute(
-    "id",
-    "show-notes-btn",
-    "data-toggle",
-    "modal",
-    "data-target",
-    "#exampleModalCenter"
-  );
-  document.getElementsByTagName("body")[0].appendChild = `<div
+  // const editBtn = document.createElement("button");
+  // // id="show-notes-btn"
+  // // data-toggle="modal"
+  // // data-target="#exampleModalCenter"
+  // document.getElementsByTagName("body")[0].appendChild = editBtn;
+  // editBtn.setAttribute(
+  //   "id",
+  //   "show-notes-btn",
+  //   "data-toggle",
+  //   "modal",
+  //   "data-target",
+  //   "#exampleModalCenter"
+  // );
+  
+  body.innerHTML =
+    bodyHTML +
+    `<div
   class="modal fade"
   id="exampleModalCenter"
   tabindex="-1"
@@ -239,6 +245,11 @@ function displayNotes() {
                 
             </div>`;
     notesContainer.innerHTML = noteCard;
+    // if (notes.length) {
+    //   notesContainer.innerHTML = noteCard;
+    // } else {
+    //   notesContainer.innerHTML = `No Notes!`;
+    // }
   }
 }
 
