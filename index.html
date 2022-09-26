@@ -11,7 +11,9 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/font-awesome.min.css">
+     -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css" />
     <title>NoteSnap</title>
   </head>
@@ -82,42 +84,23 @@
               >
                 U
               </button>
-              <button class="btn btn-sm btn-warning copy">Copy</button>
+              <button class="btn btn-sm btn-warning copy"><i class="fa fa-copy"></i></button>
             </div>
             <button class="btn btn-primary float-right" id="add-note-btn">
-              Add Note
+              <i class="fa fa-plus m-1"></i>Add Note
             </button>
           </div>
         </div>
       </div>
       <br />
-      <!-- <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="note-title" >Title</h5>
-        <p class="note-content"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed aut quia recusandae mollitia sunt nemo officia quas dolorum distinctio ipsa asperiores incidunt perspiciatis nobis inventore dolorem, ipsam itaque blanditiis nulla.</p>
-        <div class=" d-flex justify-content-between align-items-center">
-          <small>Sep 26 2022</small>
-          <i class="fa fa-car"></i>
-        <div class=" d-flex justify-content-between ">
-          <button
-        class="btn btn-primary float-right 
-        id="show-notes-btn"
-        data-toggle="modal"
-        data-target="#exampleModalCenter"
-      >
-      E
-    </button>
-        <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-        </div>
-        </div>
-    </div>
-  </div> -->
+      
+      
       
       <h2>Saved Notes</h2>
       <br />
       <div
         id="notes"
-        class="row container-fluid"
+        class="row container-fluid d-flex jus "
         style="justify-content: center"
       >
         <!-- <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
