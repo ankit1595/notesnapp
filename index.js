@@ -59,7 +59,7 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  allNotes
+ /* allNotes
     .slice()
     .reverse()
     .forEach((element, index) => {
@@ -74,7 +74,24 @@ function displayNotes() {
                 </div>
             </div>`;
       notesContainer.innerHTML = noteCard;
-    });
+    }); */
+
+  for (let index = allNotes.length - 1; index >= 0; index--) {
+    let element = allNotes[index];
+    noteCard =
+      noteCard +
+      `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="note-title" style="display: ${
+                      element.title ? "block" : "none"
+                    }">${element?.title ?? ""}</h5>
+                    <p class="note-content"> ${element?.content ?? ""}</p>
+                    <small>${element?.noteDate ?? ""} </small>
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
+                </div>
+            </div>`;
+    notesContainer.innerHTML = noteCard;
+  }
 }
 
 const text = document.querySelector("#add-note-content");
