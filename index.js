@@ -50,17 +50,121 @@ function addNote() {
 }
 
 function deleteNote(index) {
-  console.log("delete: ", index)
-  // let notes = localStorage.getItem("notes");
-  // if (notes) {
-  //   allNotes = JSON.parse(notes);
-  // } else {
-  //   allNotes = [];
-  // }
-  // allNotes.splice(index, 1);
-  console.log("allNotes: ", allNotes);
-  // localStorage.setItem("notes", JSON.stringify(allNotes));
+  console.log("delete: ", index);
+  let notes = localStorage.getItem("notes");
+  if (notes) {
+    allNotes = JSON.parse(notes);
+  } else {
+    allNotes = [];
+  }
+  allNotes.splice(index, 1);
+  console.log("allNotes: ", index);
+  localStorage.setItem("notes", JSON.stringify(allNotes));
   displayNotes();
+}
+
+function editNote(index) {
+  let notes = localStorage.getItem("notes");
+  if (notes) {
+    allNotes = JSON.parse(notes);
+  } else {
+    allNotes = [];
+  }
+  console.log("edit: ", allNotes[index]);
+  const editObj= allNotes[index];
+  const editBtn=document.createElement("button");
+  // id="show-notes-btn"
+  // data-toggle="modal"
+  // data-target="#exampleModalCenter"
+  document.getElementsByTagName("body")[0].appendChild =(editBtn);
+  editBtn.setAttribute("id","show-notes-btn", "data-toggle","modal","data-target","#exampleModalCenter");
+  document.getElementsByTagName("body")[0].appendChild =( `<div
+  class="modal fade"
+  id="exampleModalCenter"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          Edit Note
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default"
+            >Title</span
+          >
+          <input type="text" id="add-note-title" class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default"
+          value="${editObj.title?? ""}" />
+        </div>
+        <div class="form-group">
+          <!-- <textarea placeholder="Take a note..." class="form-control" id="add-note-content" rows="3"></textarea> -->
+          <p
+            id="add-note-content"
+            class="form-control"
+            contenteditable="true"
+            ;
+            style="overflow-y: auto; height: 130px"
+          >
+            ${editObj?.content ?? ""}
+          </p>
+          <div
+            id="error-message"
+            style="color: red; margin-bottom: 10px; font-size: 14px"
+          ></div>
+        </div>
+        <div class="buttons">
+          <div class="util-btn">
+            <button class="btn btn-sm btn-outline-dark" id="bold-btn">
+              <b>B</b>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-dark"
+              id="underline-btn"
+              style="text-decoration: underline"
+            >
+              U
+            </button>
+            <button class="btn btn-sm btn-warning copy">Copy</button>
+          </div>
+          <div class="">
+            <button class="btn btn-primary float-right" id="add-note-btn">
+              Update Note
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary mx-2"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`);
+  console.log(document.getElementsByTagName("body"));
+  // allNotes.splice(index, 1);
+  // console.log("allNotes: ", index);
+  // localStorage.setItem("notes", JSON.stringify(allNotes));
+ 
+  displayNotes();
+
 }
 
 function displayNotes() {
@@ -74,9 +178,7 @@ function displayNotes() {
     notesContainer.innerHTML = `No Notes!`;
   }
   allNotes
-    .slice()
-    .reverse()
-    .forEach((element, index, array) => {
+    .forEach((element, index) => {
       noteCard =
         noteCard +
         `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
@@ -86,8 +188,20 @@ function displayNotes() {
                     }">${element?.title ?? ""}</h5>
                     <p class="note-content"> ${element?.content ?? ""}</p>
                     <small>${element?.noteDate ?? ""} </small>
-                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
+                    <div>
+                    <button
+                    id="${index}" onclick="editNote(this.id)"
+                    class="btn btn-primary float-right 
+                    id="show-notes-btn"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                  >
+                  E
+                </button>
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
+                    </div>
                 </div>
+                
             </div>`;
       notesContainer.innerHTML = noteCard;
     });
