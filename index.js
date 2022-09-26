@@ -265,9 +265,9 @@ function displayNotes() {
       <h5 class="note-title" style="display: ${
         element.title ? "block" : "none"
       }">${element?.title ?? ""}</h5>
-        <!-- <hr /> -->
-        <p class="note-content">  ${element?.content ?? ""}</p>
-        <hr/>
+        
+        <p class="note-content " id="content">  ${element?.content ?? ""}</p>
+        
         <div  id="cardfoot" class=" d-flex justify-content-between align-items-center ">
           <span class="date" >${element?.noteDate ?? ""} </span>
         <div class=" align-items-center  ">

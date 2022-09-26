@@ -16,14 +16,14 @@ body{
     
 }
 
-@media screen and (max-width: 440px) {
+/* @media screen and (max-width: 440px) {
     #cardfoot {
         display: flex;
         flex-direction: column;
         gap: 15px;
     }
 }
-    
+     */
 
 
 .buttons {
@@ -48,12 +48,25 @@ body{
   }
 
   #cardfoot{
-    /* position: absolute; */
-    display: flex;
-    flex-wrap: wrap;
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    width: 100%;
+    position: absolute;
     bottom: 0;
-    padding: 10px;
+    right: 0;
+    left: 0;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap
+    /* sticky: bottom; */
+  }
+
+  #logo{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+  }
+
+  p{
+    margin-top: 0;
+    margin-bottom: 3rem;
   }
