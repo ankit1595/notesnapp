@@ -119,19 +119,6 @@ function editNote(index) {
   }
   console.log("edit: ", allNotes[index]);
   const editObj = allNotes[index];
-  // const editBtn = document.createElement("button");
-  // // id="show-notes-btn"
-  // // data-toggle="modal"
-  // // data-target="#exampleModalCenter"
-  // document.getElementsByTagName("body")[0].appendChild = editBtn;
-  // editBtn.setAttribute(
-  //   "id",
-  //   "show-notes-btn",
-  //   "data-toggle",
-  //   "modal",
-  //   "data-target",
-  //   "#exampleModalCenter"
-  // );
 
   body.innerHTML =
     bodyHTML +
@@ -223,17 +210,12 @@ function editNote(index) {
     </div>
   </div>
 </div>`;
-  console.log(document.getElementsByTagName("body"));
-  // allNotes.splice(index, 1);
-  // console.log("allNotes: ", index);
-  // localStorage.setItem("notes", JSON.stringify(allNotes));
+
 
   displayNotes();
   editTitleId = "edit-note-title";
   editContentId = "edit-note-content";
-  // editNoteBtnId = "edit-note-btn";
- 
- 
+
 }
 
  
@@ -250,90 +232,6 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  // allNotes.forEach((element, index) => {
-  //   noteCard =
-  //     noteCard +
-      // `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-      //           <div class="card-body">
-      //               <h5 class="note-title" style="display: ${
-      //                 element.title ? "block" : "none"
-      //               }">${element?.title ?? ""}</h5>
-      //               <p class="note-content"> ${element?.content ?? ""}</p>
-      //               <small>${element?.noteDate ?? ""} </small>
-      //               <div>
-      //               <button
-      //               id="${index}" onclick="editNote(this.id)"
-      //               class="btn btn-primary float-right
-      //               id="show-notes-btn"
-      //               data-toggle="modal"
-      //               data-target="#exampleModalCenter"
-      //             >
-      //             E
-      //           </button>
-      //               <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-      //               </div>
-      //           </div>
-      //       </div>`;
-  //     ` <div class="noteCard my-2 mx-2 card" id="note" style="width: 18rem;">
-  //     <div class="card-body   ">
-  //     <h5 class="note-title" style="display: ${
-  //       element.title ? "block" : "none"
-  //     }">${element?.title ?? ""}</h5>
-  //       <!-- <hr /> -->
-  //       <p class="note-content">  ${element?.content ?? ""}</p>
-  //       <hr/>
-  //       <div  id="cardfoot" class=" d-flex justify-content-between align-items-center ">
-  //         <span class="date" >${element?.noteDate ?? ""} </span>
-  //       <div class=" align-items-center  ">
-  //         <button
-  //         id="${index}" onclick="editNote(this.id)"
-  //       class="btn btn-outline-primary float-right mx-2 
-  //       id="show-notes-btn"
-  //       data-toggle="modal"
-  //       data-target="#exampleModalCenter"
-  //     >
-  //     <i class=" fa fa-pencil "></i>
-
-  //   </button>
-  //   <i class="fa-light fa-pen-to-square "></i>
-  //   <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-outline-secondary">
-  //     <i class=" fa fa-trash "></i>
-          
-  //       </button>
-  //       </div>
-  //       </div>
-  //   </div>
-  // </div>`;
-  //   notesContainer.innerHTML = noteCard;
-  // });
-  /* allNotes
-    .forEach((element, index) => {
-      noteCard =
-        noteCard +
-        `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="note-title" style="display: ${
-                      element.title ? "block" : "none"
-                    }">${element?.title ?? ""}</h5>
-                    <p class="note-content"> ${element?.content ?? ""}</p>
-                    <small>${element?.noteDate ?? ""} </small>
-                    <div>
-                    <button
-                    id="${index}" onclick="editNote(this.id)"
-                    class="btn btn-primary float-right 
-                    id="show-notes-btn"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                  >
-                  E
-                </button>
-                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-                    </div>
-                </div>
-                
-            </div>`;
-      notesContainer.innerHTML = noteCard;
-    });*/
 
   for (let index = allNotes.length - 1; index >= 0; index--) {
     let element = allNotes[index];
@@ -371,11 +269,6 @@ function displayNotes() {
     </div>
   </div>`;
     notesContainer.innerHTML = noteCard;
-    // if (notes.length) {
-    //   notesContainer.innerHTML = noteCard;
-    // } else {
-    //   notesContainer.innerHTML = `No Notes!`;
-    // }
   }
 }
 
