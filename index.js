@@ -1,9 +1,15 @@
 const getById = (id) => {
   return document.getElementById(id);
 };
+
+// IDs declarations
 const addTitleId = "add-note-title";
 const addContentId = "add-note-content";
 const addNoteBtnId = "add-note-btn";
+// for Edit Note
+let editTitleId = "edit-note-title";
+let editContentId = "edit-note-content";
+let editNoteBtnId = "edit-note-btn";
 
 //declarations for bold, underline and copy
 const text = document.querySelector("#add-note-content");
@@ -22,10 +28,15 @@ let errorMessage = "";
 const addNoteTitle = getById(addTitleId);
 const addNoteContent = getById(addContentId);
 const addNoteBtn = getById(addNoteBtnId);
+let editNoteTitle = getById(editTitleId);
+let editNoteContent = getById(editContentId);
+let editNoteBtn = getById(editNoteBtnId);
 
 //to display notes initially and on refresh
 displayNotes();
 
+//Event Listeners
+//1. AddNote
 addNoteBtn.addEventListener("click", () => {
   let errorDiv = document.querySelector("#error-message");
   errorDiv.innerText = "";
@@ -71,6 +82,30 @@ function deleteNote(index) {
   displayNotes();
 }
 
+function updateNote(index) {
+  editNoteTitle = getById(editTitleId);
+  editNoteContent = getById(editContentId);
+  // editNoteBtn = getById(editNoteBtnId);
+
+  console.log("update: ", index);
+  console.log("editNoteTitle: ", editNoteTitle.value);
+  console.log("editNoteContent: ", editNoteContent.innerHTML);
+  let notes = localStorage.getItem("notes");
+  if (notes) {
+    allNotes = JSON.parse(notes);
+  } else {
+    allNotes = [];
+  }
+  allNotes[index] = {
+    title: editNoteTitle.value,
+    content: editNoteContent.innerHTML,
+    noteDate: String(new Date()).slice(4, 15),
+  };
+  console.log("allNotes: ", allNotes);
+  localStorage.setItem("notes", JSON.stringify(allNotes));
+  displayNotes();
+}
+
 const body = document.getElementsByTagName("body")[0];
 const bodyHTML = body.innerHTML;
 
@@ -96,7 +131,7 @@ function editNote(index) {
   //   "data-target",
   //   "#exampleModalCenter"
   // );
-  
+
   body.innerHTML =
     bodyHTML +
     `<div
@@ -127,15 +162,15 @@ function editNote(index) {
           <span class="input-group-text" id="inputGroup-sizing-default"
             >Title</span
           >
-          <input type="text" id="add-note-title" class="form-control"
+          <input type="text" id="edit-note-title" class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
           value="${editObj.title ?? ""}" />
         </div>
         <div class="form-group">
-          <!-- <textarea placeholder="Take a note..." class="form-control" id="add-note-content" rows="3"></textarea> -->
+          <!-- <textarea placeholder="Take a note..." class="form-control" id="edit-note-content" rows="3"></textarea> -->
           <p
-            id="add-note-content"
+            id="edit-note-content"
             class="form-control"
             contenteditable="true"
             ;
@@ -163,7 +198,7 @@ function editNote(index) {
             <button class="btn btn-sm btn-warning copy">Copy</button>
           </div>
           <div class="">
-            <button class="btn btn-primary float-right" id="add-note-btn">
+            <button class="btn btn-primary float-right" id="${index}" onclick="updateNote(this.id)">
               Update Note
             </button>
             <button
@@ -185,8 +220,9 @@ function editNote(index) {
   // localStorage.setItem("notes", JSON.stringify(allNotes));
 
   displayNotes();
-
-
+  editTitleId = "edit-note-title";
+  editContentId = "edit-note-content";
+  // editNoteBtnId = "edit-note-btn";
 }
 
 function displayNotes() {
@@ -263,8 +299,6 @@ function displayNotes() {
     // }
   }
 }
-
-
 
 function bold(e) {
   e.preventDefault();
