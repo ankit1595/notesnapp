@@ -16,14 +16,14 @@ body{
     
 }
 
-/* @media screen and (max-width: 440px) {
+@media screen and (max-width: 440px) {
     #cardfoot {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 5px;
     }
 }
-     */
+    
 
 
 .buttons {
@@ -68,5 +68,5 @@ body{
 
   p{
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
   }
