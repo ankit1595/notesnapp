@@ -49,6 +49,20 @@ function addNote() {
   displayNotes();
 }
 
+function deleteNote(index) {
+  console.log("delete: ", index)
+  // let notes = localStorage.getItem("notes");
+  // if (notes) {
+  //   allNotes = JSON.parse(notes);
+  // } else {
+  //   allNotes = [];
+  // }
+  // allNotes.splice(index, 1);
+  console.log("allNotes: ", allNotes);
+  // localStorage.setItem("notes", JSON.stringify(allNotes));
+  displayNotes();
+}
+
 function displayNotes() {
   let notesContainer = getById("notes");
   let noteCard = "";
@@ -62,15 +76,17 @@ function displayNotes() {
   allNotes
     .slice()
     .reverse()
-    .forEach((element, index) => {
+    .forEach((element, index, array) => {
       noteCard =
         noteCard +
         `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="note-title">${element?.title ?? ""}</h5>
+                    <h5 class="note-title" style="display: ${
+                      element.title ? "block" : "none"
+                    }">${element?.title ?? ""}</h5>
                     <p class="note-content"> ${element?.content ?? ""}</p>
                     <small>${element?.noteDate ?? ""} </small>
-                    <!-- <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button> -->
+                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                 </div>
             </div>`;
       notesContainer.innerHTML = noteCard;
