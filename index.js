@@ -10,6 +10,7 @@ const addNoteBtnId = "add-note-btn";
 let editTitleId = "edit-note-title";
 let editContentId = "edit-note-content";
 let editNoteBtnId = "edit-note-btn";
+let editBoldBtnId = "edit-bold-button";
 
 //declarations for bold, underline and copy
 const text = document.querySelector("#add-note-content");
@@ -17,6 +18,8 @@ const boldButton = document.querySelector("#bold-btn");
 const underlineButton = document.querySelector("#underline-btn");
 let isBold = false;
 let isUnderline = false;
+let isBoldInEdit = false;
+let isUnderlineInEdit = false;
 text.contentEditable = "true";
 
 let allNotes;
@@ -31,6 +34,7 @@ const addNoteBtn = getById(addNoteBtnId);
 let editNoteTitle = getById(editTitleId);
 let editNoteContent = getById(editContentId);
 let editNoteBtn = getById(editNoteBtnId);
+let editBoldBtn = getById(editBoldBtnId);
 
 //to display notes initially and on refresh
 displayNotes();
@@ -103,6 +107,7 @@ function updateNote(index) {
   };
   console.log("allNotes: ", allNotes);
   localStorage.setItem("notes", JSON.stringify(allNotes));
+  window.location.reload();
   displayNotes();
 }
 
@@ -118,34 +123,27 @@ function editNote(index) {
   }
   console.log("edit: ", allNotes[index]);
   const editObj = allNotes[index];
-  // const editBtn = document.createElement("button");
-  // // id="show-notes-btn"
-  // // data-toggle="modal"
-  // // data-target="#exampleModalCenter"
-  // document.getElementsByTagName("body")[0].appendChild = editBtn;
-  // editBtn.setAttribute(
-  //   "id",
-  //   "show-notes-btn",
-  //   "data-toggle",
-  //   "modal",
-  //   "data-target",
-  //   "#exampleModalCenter"
-  // );
 
   body.innerHTML =
     bodyHTML +
     `<div
   class="modal fade"
-  id="exampleModalCenter"
+  data-backdrop="static"
+  // id="exampleModalCenter"
+  id="staticBackdrop"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="exampleModalCenterTitle"
+  // aria-labelledby="exampleModalCenterTitle"
+  aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
+        <h5 class="modal-title" 
+        // id="exampleModalLongTitle"
+        id="staticBackdropLabel"
+        >
           Edit Note
         </h5>
         <button
@@ -153,6 +151,7 @@ function editNote(index) {
           class="close"
           data-dismiss="modal"
           aria-label="Close"
+          onclick="window.location.reload();"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -183,9 +182,9 @@ function editNote(index) {
             style="color: red; margin-bottom: 10px; font-size: 14px"
           ></div>
         </div>
-        <div class="buttons">
-          <div class="util-btn">
-            <button class="btn btn-sm btn-outline-dark" id="bold-btn">
+        <div class="buttons justify-content-end">
+          <!-- <div class="util-btn">
+            <button class="btn btn-sm btn-outline-dark" id="edit-bold-btn">
               <b>B</b>
             </button>
             <button
@@ -195,18 +194,19 @@ function editNote(index) {
             >
               U
             </button>
-            <button class="btn btn-sm btn-warning copy">Copy</button>
-          </div>
+            <button class="btn btn-sm btn-warning edit-copy">Copy</button>
+          </div> -->
           <div class="">
+          <button
+            type="button"
+            class="btn btn-secondary mx-2"
+            data-dismiss="modal"  
+            onclick="window.location.reload();"
+          >
+            Close
+          </button>
             <button class="btn btn-primary float-right" id="${index}" onclick="updateNote(this.id)">
               Update Note
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary mx-2"
-              data-dismiss="modal"
-            >
-              Close
             </button>
           </div>
         </div>
@@ -214,19 +214,16 @@ function editNote(index) {
     </div>
   </div>
 </div>`;
-  console.log(document.getElementsByTagName("body"));
-  // allNotes.splice(index, 1);
-  // console.log("allNotes: ", index);
-  // localStorage.setItem("notes", JSON.stringify(allNotes));
 
   displayNotes();
   editTitleId = "edit-note-title";
   editContentId = "edit-note-content";
-  // editNoteBtnId = "edit-note-btn";
+  editBoldBtnId = "edit-bold-button";
+  editBoldBtn = getById(editBoldBtnId);
 }
 
 function displayNotes() {
-  text.contentEditable = "true";
+  // text.contentEditable = "true";
   let notesContainer = getById("notes");
   let noteCard = "";
   let notes = localStorage.getItem("notes");
@@ -236,30 +233,11 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  allNotes.forEach((element, index) => {
+
+  for (let index = allNotes.length - 1; index >= 0; index--) {
+    let element = allNotes[index];
     noteCard =
       noteCard +
-      // `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-      //           <div class="card-body">
-      //               <h5 class="note-title" style="display: ${
-      //                 element.title ? "block" : "none"
-      //               }">${element?.title ?? ""}</h5>
-      //               <p class="note-content"> ${element?.content ?? ""}</p>
-      //               <small>${element?.noteDate ?? ""} </small>
-      //               <div>
-      //               <button
-      //               id="${index}" onclick="editNote(this.id)"
-      //               class="btn btn-primary float-right 
-      //               id="show-notes-btn"
-      //               data-toggle="modal"
-      //               data-target="#exampleModalCenter"
-      //             >
-      //             E
-      //           </button>
-      //               <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-      //               </div>
-      //           </div>  
-      //       </div>`;
       ` <div class="noteCard my-2 mx-2 card" id="note" style="width: 18rem;">
       <div class="card-body   ">
       <h5 class="note-title" style="display: ${
@@ -276,7 +254,8 @@ function displayNotes() {
         class="btn btn-outline-primary float-right mx-2 
         id="show-notes-btn"
         data-toggle="modal"
-        data-target="#exampleModalCenter"
+        // data-target="#exampleModalCenter"
+        data-target="#staticBackdrop"
       >
       <i class=" fa fa-pencil "></i>
 
@@ -291,69 +270,18 @@ function displayNotes() {
     </div>
   </div>`;
     notesContainer.innerHTML = noteCard;
-  });
-  /* allNotes
-    .forEach((element, index) => {
-      noteCard =
-        noteCard +
-        `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="note-title" style="display: ${
-                      element.title ? "block" : "none"
-                    }">${element?.title ?? ""}</h5>
-                    <p class="note-content"> ${element?.content ?? ""}</p>
-                    <small>${element?.noteDate ?? ""} </small>
-                    <div>
-                    <button
-                    id="${index}" onclick="editNote(this.id)"
-                    class="btn btn-primary float-right 
-                    id="show-notes-btn"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                  >
-                  E
-                </button>
-                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-                    </div>
-                </div>
-                
-            </div>`;
-      notesContainer.innerHTML = noteCard;
-    });*/
-
-  for (let index = allNotes.length - 1; index >= 0; index--) {
-    let element = allNotes[index];
-    noteCard =
-      noteCard +
-      `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="note-title" style="display: ${
-                      element.title ? "block" : "none"
-                    }">${element?.title ?? ""}</h5>
-                    <p class="note-content"> ${element?.content ?? ""}</p>
-                    <small>${element?.noteDate ?? ""} </small>
-                    <div>
-                    <button
-                    id="${index}" onclick="editNote(this.id)"
-                    class="btn btn-primary float-right 
-                    id="show-notes-btn"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                  >
-                  E
-                </button>
-                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-                    </div>
-                </div>
-                
-            </div>`;
-    notesContainer.innerHTML = noteCard;
-    // if (notes.length) {
-    //   notesContainer.innerHTML = noteCard;
-    // } else {
-    //   notesContainer.innerHTML = `No Notes!`;
-    // }
   }
+}
+
+function boldInsideEdit(e) {
+  e.preventDefault();
+  isBoldInEdit = !isBoldInEdit;
+  if (isBoldInEdit) {
+    editBoldBtn.classList.replace("btn-outline-dark", "btn-dark");
+  } else {
+    editBoldBtn.classList.replace("btn-dark", "btn-outline-dark");
+  }
+  document.execCommand("bold");
 }
 
 function bold(e) {
@@ -381,18 +309,16 @@ function underline(e) {
 boldButton.addEventListener("click", bold);
 underlineButton.addEventListener("click", underline);
 
+//edit pop up bold button
+editBoldBtn.addEventListener("click", boldInsideEdit);
+
 document.addEventListener("click", (e) => {
   if (e.target.closest(".copy")) {
-    console.log(
-      "copy: ",
-      e.target.closest(".copy").parentElement.lastElementChild
-        .previousElementSibling.previousElementSibling.previousElementSibling
-        .previousElementSibling
-    );
     const copytext =
-      e.target.closest(".copy").parentElement.lastElementChild
-        .previousElementSibling.previousElementSibling.previousElementSibling
-        .previousElementSibling.innerText;
+      e.target.closest(".copy").parentElement.parentElement
+        .previousElementSibling.lastElementChild.previousElementSibling
+        .innerText;
+    console.log("copy: ", copytext);
     const textArea = document.createElement("textarea");
     textArea.setAttribute("readonly", "");
     textArea.style.position = "absolute";
