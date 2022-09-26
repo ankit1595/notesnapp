@@ -103,6 +103,7 @@ function updateNote(index) {
   };
   console.log("allNotes: ", allNotes);
   localStorage.setItem("notes", JSON.stringify(allNotes));
+  window.location.reload();
   displayNotes();
 }
 
@@ -136,16 +137,22 @@ function editNote(index) {
     bodyHTML +
     `<div
   class="modal fade"
-  id="exampleModalCenter"
+  data-backdrop="static"
+  // id="exampleModalCenter"
+  id="staticBackdrop"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="exampleModalCenterTitle"
+  // aria-labelledby="exampleModalCenterTitle"
+  aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
+        <h5 class="modal-title" 
+        // id="exampleModalLongTitle"
+        id="staticBackdropLabel"
+        >
           Edit Note
         </h5>
         <button
@@ -153,6 +160,7 @@ function editNote(index) {
           class="close"
           data-dismiss="modal"
           aria-label="Close"
+          onclick="window.location.reload();"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -204,7 +212,8 @@ function editNote(index) {
             <button
               type="button"
               class="btn btn-secondary mx-2"
-              data-dismiss="modal"
+              data-dismiss="modal"  
+              onclick="window.location.reload();"
             >
               Close
             </button>
@@ -223,10 +232,15 @@ function editNote(index) {
   editTitleId = "edit-note-title";
   editContentId = "edit-note-content";
   // editNoteBtnId = "edit-note-btn";
+ 
+ 
 }
 
+ 
+
 function displayNotes() {
-  text.contentEditable = "true";
+   
+  // text.contentEditable = "true";
   let notesContainer = getById("notes");
   let noteCard = "";
   let notes = localStorage.getItem("notes");
@@ -236,9 +250,9 @@ function displayNotes() {
     allNotes = [];
     notesContainer.innerHTML = `No Notes!`;
   }
-  allNotes.forEach((element, index) => {
-    noteCard =
-      noteCard +
+  // allNotes.forEach((element, index) => {
+  //   noteCard =
+  //     noteCard +
       // `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
       //           <div class="card-body">
       //               <h5 class="note-title" style="display: ${
@@ -249,7 +263,7 @@ function displayNotes() {
       //               <div>
       //               <button
       //               id="${index}" onclick="editNote(this.id)"
-      //               class="btn btn-primary float-right 
+      //               class="btn btn-primary float-right
       //               id="show-notes-btn"
       //               data-toggle="modal"
       //               data-target="#exampleModalCenter"
@@ -258,40 +272,40 @@ function displayNotes() {
       //           </button>
       //               <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
       //               </div>
-      //           </div>  
+      //           </div>
       //       </div>`;
-      ` <div class="noteCard my-2 mx-2 card" id="note" style="width: 18rem;">
-      <div class="card-body   ">
-      <h5 class="note-title" style="display: ${
-        element.title ? "block" : "none"
-      }">${element?.title ?? ""}</h5>
-        <!-- <hr /> -->
-        <p class="note-content">  ${element?.content ?? ""}</p>
-        <hr/>
-        <div  id="cardfoot" class=" d-flex justify-content-between align-items-center ">
-          <span class="date" >${element?.noteDate ?? ""} </span>
-        <div class=" align-items-center  ">
-          <button
-          id="${index}" onclick="editNote(this.id)"
-        class="btn btn-outline-primary float-right mx-2 
-        id="show-notes-btn"
-        data-toggle="modal"
-        data-target="#exampleModalCenter"
-      >
-      <i class=" fa fa-pencil "></i>
+  //     ` <div class="noteCard my-2 mx-2 card" id="note" style="width: 18rem;">
+  //     <div class="card-body   ">
+  //     <h5 class="note-title" style="display: ${
+  //       element.title ? "block" : "none"
+  //     }">${element?.title ?? ""}</h5>
+  //       <!-- <hr /> -->
+  //       <p class="note-content">  ${element?.content ?? ""}</p>
+  //       <hr/>
+  //       <div  id="cardfoot" class=" d-flex justify-content-between align-items-center ">
+  //         <span class="date" >${element?.noteDate ?? ""} </span>
+  //       <div class=" align-items-center  ">
+  //         <button
+  //         id="${index}" onclick="editNote(this.id)"
+  //       class="btn btn-outline-primary float-right mx-2 
+  //       id="show-notes-btn"
+  //       data-toggle="modal"
+  //       data-target="#exampleModalCenter"
+  //     >
+  //     <i class=" fa fa-pencil "></i>
 
-    </button>
-    <i class="fa-light fa-pen-to-square "></i>
-    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-outline-secondary">
-      <i class=" fa fa-trash "></i>
+  //   </button>
+  //   <i class="fa-light fa-pen-to-square "></i>
+  //   <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-outline-secondary">
+  //     <i class=" fa fa-trash "></i>
           
-        </button>
-        </div>
-        </div>
-    </div>
-  </div>`;
-    notesContainer.innerHTML = noteCard;
-  });
+  //       </button>
+  //       </div>
+  //       </div>
+  //   </div>
+  // </div>`;
+  //   notesContainer.innerHTML = noteCard;
+  // });
   /* allNotes
     .forEach((element, index) => {
       noteCard =
@@ -325,28 +339,37 @@ function displayNotes() {
     let element = allNotes[index];
     noteCard =
       noteCard +
-      `<div class="noteCard my-2 mx-2 card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="note-title" style="display: ${
-                      element.title ? "block" : "none"
-                    }">${element?.title ?? ""}</h5>
-                    <p class="note-content"> ${element?.content ?? ""}</p>
-                    <small>${element?.noteDate ?? ""} </small>
-                    <div>
-                    <button
-                    id="${index}" onclick="editNote(this.id)"
-                    class="btn btn-primary float-right 
-                    id="show-notes-btn"
-                    data-toggle="modal"
-                    data-target="#exampleModalCenter"
-                  >
-                  E
-                </button>
-                    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">D</button>
-                    </div>
-                </div>
-                
-            </div>`;
+      ` <div class="noteCard my-2 mx-2 card" id="note" style="width: 18rem;">
+      <div class="card-body   ">
+      <h5 class="note-title" style="display: ${
+        element.title ? "block" : "none"
+      }">${element?.title ?? ""}</h5>
+        <!-- <hr /> -->
+        <p class="note-content">  ${element?.content ?? ""}</p>
+        <hr/>
+        <div  id="cardfoot" class=" d-flex justify-content-between align-items-center ">
+          <span class="date" >${element?.noteDate ?? ""} </span>
+        <div class=" align-items-center  ">
+          <button
+          id="${index}" onclick="editNote(this.id)"
+        class="btn btn-outline-primary float-right mx-2 
+        id="show-notes-btn"
+        data-toggle="modal"
+        // data-target="#exampleModalCenter"
+        data-target="#staticBackdrop"
+      >
+      <i class=" fa fa-pencil "></i>
+
+    </button>
+    <i class="fa-light fa-pen-to-square "></i>
+    <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-outline-secondary">
+      <i class=" fa fa-trash "></i>
+          
+        </button>
+        </div>
+        </div>
+    </div>
+  </div>`;
     notesContainer.innerHTML = noteCard;
     // if (notes.length) {
     //   notesContainer.innerHTML = noteCard;
@@ -355,6 +378,7 @@ function displayNotes() {
     // }
   }
 }
+
 
 function bold(e) {
   e.preventDefault();
