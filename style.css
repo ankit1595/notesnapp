@@ -1,10 +1,19 @@
+.hide {
+    display: none;
+}
 
-.form{
-    width: 50%;
+@media screen and (max-width: 550px) {
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
-    margin: 0 auto;
-    border: 1px solid #000;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
