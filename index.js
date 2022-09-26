@@ -5,6 +5,14 @@ const addTitleId = "add-note-title";
 const addContentId = "add-note-content";
 const addNoteBtnId = "add-note-btn";
 
+//declarations for bold, underline and copy
+const text = document.querySelector("#add-note-content");
+const boldButton = document.querySelector("#bold-btn");
+const underlineButton = document.querySelector("#underline-btn");
+let isBold = false;
+let isUnderline = false;
+text.contentEditable = "true";
+
 let allNotes;
 let errorMessage = "";
 // localStorage.clear();
@@ -177,9 +185,12 @@ function editNote(index) {
   // localStorage.setItem("notes", JSON.stringify(allNotes));
 
   displayNotes();
+
+
 }
 
 function displayNotes() {
+  text.contentEditable = "true";
   let notesContainer = getById("notes");
   let noteCard = "";
   let notes = localStorage.getItem("notes");
@@ -253,13 +264,7 @@ function displayNotes() {
   }
 }
 
-const text = document.querySelector("#add-note-content");
-const boldButton = document.querySelector("#bold-btn");
-const underlineButton = document.querySelector("#underline-btn");
-let isBold = false;
-let isUnderline = false;
 
-text.contentEditable = "true";
 
 function bold(e) {
   e.preventDefault();
