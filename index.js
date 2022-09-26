@@ -1,4 +1,4 @@
-const text = document.querySelector("#decs");
+const text = document.querySelector(".decs");
 const boldButton = document.querySelector("#bold");
 const underlineButton = document.querySelector("#underline");
 
@@ -19,20 +19,17 @@ function underline(e) {
 boldButton.addEventListener("click", bold);
 underlineButton.addEventListener("click", underline);
 
-// Bold the selected text
-// function makeTextBold(e) {
-//   e.preventDefault();
-//   const selecText = window.getSelection().getRangeAt(0);
-//   const boldText = "<b>" + selecText + "</b>";
-//   text.innerHTML = text.innerHTML.replace(selecText, boldText);
-//   console.log(text.innerHTML);
-// }
+const newNoteButton = document.getElementById("addNote");
+const newNoteEditor = document.getElementById("newNoteDialog");
+const discardBtn = document.querySelector(".discard");
 
-// Underline the selected text
-// function makeTextUnderline(e) {
-//   e.preventDefault();
-//   const selecText = window.getSelection().getRangeAt(0);
-//   const underlineText = `<span style="text-decoration: underline">${selecText}</span>`;
-//   text.innerHTML = text.innerHTML.replace(selecText, underlineText);
-//   console.log(text.innerHTML);
-// }
+function openModal(e) {
+  newNoteEditor.show();
+  
+}
+
+function closeModal() {
+  newNoteEditor.close();
+}
+newNoteButton.addEventListener("click", openModal);
+discardBtn.addEventListener("click", closeModal);
