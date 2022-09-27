@@ -6,7 +6,19 @@ body{
     display: none;
 }
 
-@media screen and (max-width: 550px) {
+#form{
+    width: 50%;
+}
+
+@media screen and (max-width: 800px) {
+    #form{
+        width: 100%;
+        padding: 1px;
+    }
+}
+    
+
+@media screen and (max-width: 390px) {
 
     .buttons {
         display: flex;
@@ -31,6 +43,9 @@ body{
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
+    
+   
 }
 
 .card{
@@ -66,7 +81,7 @@ body{
     margin: 10px;
   }
 
-  p{
+  #content{
     margin-top: 0;
     margin-bottom: 4rem;
   }
