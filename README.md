@@ -1,7 +1,7 @@
 # Notesnap
 It doesn't get more simple than this. Save any and all thoughts, ideas, recipes in one app: NoteSnap
 
-<h3>Features</h3> :
+<h3>Features</h3>
 <p><h5>
 
 User can make a note
